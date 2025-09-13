@@ -5,7 +5,7 @@ import BaseEditableField from '@/components/BaseEditableField.vue'
 <template>
   <main class="cv">
     <div class="personal-info">
-      <BaseEditableField></BaseEditableField>
+      <BaseEditableField>Bonjour</BaseEditableField>
     </div>
     <div class="experiences"></div>
   </main>

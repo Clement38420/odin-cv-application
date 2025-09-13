@@ -2,10 +2,11 @@
 
 <template>
   <div class="field">
-    <p class="content">Clément Charbonnel</p>
+    <p class="content">
+      <slot></slot>
+    </p>
     <div class="edit-message">
       <span class="material-icons edit-icon">edit</span>
-      Click to edit
     </div>
   </div>
 </template>
@@ -13,28 +14,30 @@
 <style scoped>
 .field {
   position: relative;
+
+  --border-radius: min(0.7em, 8px);
+  --edit-message-transition-time: 0.15s;
 }
 
 .field:hover {
   cursor: pointer;
 }
 
-.content {
-  font-size: 2rem;
-}
-
 .edit-message {
   opacity: 0;
   position: absolute;
-  bottom: 0;
+  right: 0;
+  top: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: hsla(0, 0%, 70%, 0.8);
-  transition: opacity 0.2s;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  translate: -5px 5px;
-  width: calc(100% + 10px);
+  transition: opacity var(--edit-message-transition-time);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  translate: 5px -5px;
+  height: calc(100% + 10px);
+  padding: 0 5px;
 }
 
 .field:hover .edit-message {
@@ -49,20 +52,17 @@
   left: -5px;
   right: -5px;
   bottom: -5px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   box-shadow: 0 0 0 0 transparent;
   pointer-events: none;
-  transition: box-shadow 0.2s;
+  transition: box-shadow var(--edit-message-transition-time);
 }
 
 .field:hover::after {
   box-shadow: 0 0 0 1px hsla(0, 0%, 70%, 0.8);
-  border-radius: 8px;
 }
 
 .edit-icon {
-  font-size: 1rem;
-  translate: 0 13%;
-  margin-right: 3px;
+  font-size: min(1em, 1rem);
 }
 </style>
