@@ -17,10 +17,15 @@
 
   --border-radius: min(0.7em, 8px);
   --edit-message-transition-time: 0.15s;
+  --edit-message-color: hsla(0, 0%, 70%, 0.8);
 }
 
 .field:hover {
   cursor: pointer;
+}
+
+.field:active {
+  --edit-message-color: hsla(0, 0%, 62%, 0.8);
 }
 
 .edit-message {
@@ -31,7 +36,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: hsla(0, 0%, 70%, 0.8);
+  background-color: var(--edit-message-color);
   transition: opacity var(--edit-message-transition-time);
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
@@ -59,7 +64,7 @@
 }
 
 .field:hover::after {
-  box-shadow: 0 0 0 1px hsla(0, 0%, 70%, 0.8);
+  box-shadow: 0 0 0 1px var(--edit-message-color);
 }
 
 .edit-icon {
