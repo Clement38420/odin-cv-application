@@ -1,13 +1,20 @@
 <script setup lang="ts">
-import { useTemplateRef } from 'vue'
+import { ref, useTemplateRef } from 'vue'
+import { useFieldStore } from '@/stores/field.ts'
+
+const fieldStore = useFieldStore()
 
 const modal = useTemplateRef('modal')
 
+const editedValue = ref('')
+
 function closeModal(): void {
+  fieldStore.updateActiveFieldValue(editedValue.value)
   modal.value?.close()
 }
 
 function openModal(): void {
+  editedValue.value = fieldStore.activeField?.value
   modal.value?.showModal()
 }
 
@@ -16,9 +23,12 @@ defineExpose({
   closeModal,
 })
 </script>
-Ò
+
 <template>
-  <dialog class="modal" ref="modal"></dialog>
+  <dialog class="modal" ref="modal">
+    <input type="text" v-model="editedValue" />
+    <button @click="closeModal">Valider</button>
+  </dialog>
 </template>
 
 <style scoped>

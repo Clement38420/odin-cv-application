@@ -1,19 +1,33 @@
 <script setup lang="ts">
-import BaseEditableField from '@/components/BaseEditableField.vue'
+import TextField from '@/components/TextField.vue'
 import EditTextFieldModal from '@/components/EditTextFieldModal.vue'
 import { useTemplateRef } from 'vue'
+import { type Field, useFieldStore } from '@/stores/field.ts'
 
-const editTextModal = useTemplateRef('editTextModal')
+const editTextFieldModal = useTemplateRef('editTextFieldModal')
+
+const fieldStore = useFieldStore()
+
+function openEditTextFieldModal(field: Field): void {
+  fieldStore.setActiveField(field)
+  editTextFieldModal.value?.openModal()
+}
 </script>
 
 <template>
   <main class="cv">
     <div class="personal-info">
-      <BaseEditableField @click="editTextModal?.openModal">Bonjour</BaseEditableField>
+      <TextField
+        v-for="field in fieldStore.fields"
+        :key="field.id"
+        @click="openEditTextFieldModal(field)"
+      >
+        {{ field.value }}
+      </TextField>
     </div>
     <div class="experiences"></div>
   </main>
-  <EditTextFieldModal ref="editTextModal"></EditTextFieldModal>
+  <EditTextFieldModal ref="editTextFieldModal"></EditTextFieldModal>
 </template>
 
 <style>
