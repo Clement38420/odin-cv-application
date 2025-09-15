@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import BaseEditableField from '@/components/BaseEditableField.vue'
+import EditTextFieldModal from '@/components/EditTextFieldModal.vue'
+import { useTemplateRef } from 'vue'
+
+const editTextModal = useTemplateRef('editTextModal')
 </script>
 
 <template>
   <main class="cv">
     <div class="personal-info">
-      <BaseEditableField>Bonjour</BaseEditableField>
+      <BaseEditableField @click="editTextModal?.openModal">Bonjour</BaseEditableField>
     </div>
     <div class="experiences"></div>
   </main>
+  <EditTextFieldModal ref="editTextModal"></EditTextFieldModal>
 </template>
 
 <style>
@@ -22,6 +27,10 @@ import BaseEditableField from '@/components/BaseEditableField.vue'
   --text-light: hsl(0, 0%, 95%);
 
   --card-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.15), 0 4px 4px hsla(0, 0%, 0%, 0.05);
+  --card-border: 1px solid hsl(0, 0%, 50%);
+
+  --modal-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.2);
+  --modal-border: 1px solid hsl(0, 0%, 60%);
 
   --cv-background: white;
   --cv-primary: #175dc8;
