@@ -50,12 +50,17 @@ button {
   border: 1px solid var(--button-color);
 }
 
-button:hover {
+button:hover,
+button:focus {
   transform: translateY(-2px) scale(1.04);
   box-shadow:
     0 4px 4px hsla(0, 0%, 0%, 0.15),
     0 8px 8px hsla(0, 0%, 0%, 0.05),
     0 0 3px var(--button-color);
+}
+
+button:focus {
+  outline: none;
 }
 
 button:active {
