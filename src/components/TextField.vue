@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="field">
+  <div class="field" tabindex="0">
     <p class="content">
       <slot></slot>
     </p>
@@ -45,7 +45,8 @@
   padding: 0 5px;
 }
 
-.field:hover .edit-message {
+.field:hover .edit-message,
+.field:focus .edit-message {
   opacity: 1;
 }
 
@@ -63,11 +64,16 @@
   transition: box-shadow var(--edit-message-transition-time);
 }
 
-.field:hover::after {
+.field:hover::after,
+.field:focus::after {
   box-shadow: 0 0 0 1px var(--edit-message-color);
 }
 
 .edit-icon {
   font-size: min(1em, 1rem);
+}
+
+.field:focus {
+  outline: none; /* Supprime le contour de focus par défaut */
 }
 </style>

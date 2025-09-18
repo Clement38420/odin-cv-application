@@ -30,6 +30,7 @@ function openEditTextFieldModal(field: Field, event: Event): void {
         v-for="field in fieldStore.fields"
         :key="field.id"
         @click="openEditTextFieldModal(field, $event)"
+        @keyup.enter="openEditTextFieldModal(field, $event)"
       >
         {{ field.value }}
       </TextField>
