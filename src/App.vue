@@ -8,9 +8,18 @@ const editTextFieldModal = useTemplateRef('editTextFieldModal')
 
 const fieldStore = useFieldStore()
 
-function openEditTextFieldModal(field: Field): void {
+function getElementPosition(element: HTMLElement): { x: number; y: number } {
+  const rect = element.getBoundingClientRect()
+  return {
+    x: rect.left + window.scrollX,
+    y: rect.top + window.scrollY,
+  }
+}
+
+function openEditTextFieldModal(field: Field, event: Event): void {
   fieldStore.setActiveField(field)
-  editTextFieldModal.value?.openModal()
+  const elementPosition = getElementPosition(event.target as HTMLElement)
+  editTextFieldModal.value?.openModal(elementPosition)
 }
 </script>
 
@@ -20,7 +29,7 @@ function openEditTextFieldModal(field: Field): void {
       <TextField
         v-for="field in fieldStore.fields"
         :key="field.id"
-        @click="openEditTextFieldModal(field)"
+        @click="openEditTextFieldModal(field, $event)"
       >
         {{ field.value }}
       </TextField>

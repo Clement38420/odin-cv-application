@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useTemplateRef } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 import { useFieldStore } from '@/stores/field.ts'
 import BaseButton from '@/components/BaseButton.vue'
 
@@ -8,13 +8,15 @@ const fieldStore = useFieldStore()
 const modal = useTemplateRef('modal')
 
 const editedValue = ref('')
+const modalPosition = ref({ left: '0', top: '0' })
 
 function saveField(): void {
   fieldStore.updateActiveFieldValue(editedValue.value)
 }
 
 function closeModal(): void {
-  modal.value?.close()
+  modal.value?.classList.remove('shown')
+  setTimeout(() => modal.value?.close(), 200)
 }
 
 function saveAndClose(): void {
@@ -22,10 +24,24 @@ function saveAndClose(): void {
   closeModal()
 }
 
-function openModal(): void {
+function openModal(position: { x: number; y: number }): void {
   editedValue.value = fieldStore.activeField?.value
+  modalPosition.value = {
+    left: `${position.x}px`,
+    top: `${position.y}px`,
+  }
   modal.value?.showModal()
+  modal.value?.classList.add('shown')
 }
+
+onMounted(() => {
+  modal.value?.addEventListener('click', (e: MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      e.stopPropagation()
+      closeModal()
+    }
+  })
+})
 
 defineExpose({
   openModal,
@@ -34,8 +50,7 @@ defineExpose({
 </script>
 
 <template>
-  <dialog class="modal" ref="modal">
-    <h2>Edit {{ fieldStore.activeField.name }}</h2>
+  <dialog class="modal" ref="modal" :style="modalPosition" @keydown.esc.prevent="closeModal">
     <textarea v-model="editedValue" />
     <div class="buttons-container">
       <BaseButton class="button" type="negative" @click="closeModal" outlined>
@@ -50,7 +65,7 @@ defineExpose({
 
 <style scoped>
 .modal::backdrop {
-  background-color: hsla(222deg, 20%, 60%, 0.4);
+  background-color: hsla(0, 0%, 0%, 0);
 }
 
 .modal {
@@ -59,15 +74,25 @@ defineExpose({
   border-radius: 16px;
   box-shadow: var(--modal-shadow);
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
+  translate: 0 -50%;
+  width: 300px;
   background-color: white;
   padding: 16px;
+  transform-origin: center left;
+  transform: translateX(0) scale(0);
+  opacity: 0;
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
+}
+
+.modal.shown {
+  transform: translateX(50%) scale(1);
+  opacity: 1;
 }
 
 h2 {
+  font-size: 1.2em;
   margin: 0 0 16px 0;
 }
 
