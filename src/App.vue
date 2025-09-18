@@ -42,12 +42,18 @@ function openEditTextFieldModal(field: Field): void {
 
   --card-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.15), 0 4px 4px hsla(0, 0%, 0%, 0.05);
   --card-border: 1px solid hsl(0, 0%, 50%);
+  --button-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.15), 0 4px 4px hsla(0, 0%, 0%, 0.05);
 
   --modal-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.2);
   --modal-border: 1px solid hsl(0, 0%, 60%);
 
   --cv-background: white;
   --cv-primary: #175dc8;
+
+  --positive: #008e5c;
+  --positive-dark: #006846;
+  --negative: #e83829;
+  --negative-dark: #ac2b1f;
 
   font-family: sans-serif;
   color: var(--text);
