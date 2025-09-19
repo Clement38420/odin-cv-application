@@ -29,8 +29,7 @@ provide('openEditTextFieldModal', openEditTextFieldModal)
 <template>
   <main class="cv">
     <div class="personal-info">
-      <TextField class="field" v-for="field in fieldStore.fields" :key="field.id" :field="field">
-      </TextField>
+      <TextField v-for="field in fieldStore.fields" :key="field.id" :field="field"></TextField>
     </div>
     <div class="experiences"></div>
   </main>
