@@ -9,14 +9,6 @@ const editTextFieldModal = useTemplateRef('editTextFieldModal')
 
 const fieldStore = useFieldStore()
 
-function getElementPosition(element: HTMLElement): { x: number; y: number } {
-  const rect = element.getBoundingClientRect()
-  return {
-    x: rect.left + window.scrollX,
-    y: rect.top + window.scrollY,
-  }
-}
-
 function openEditTextFieldModal(field: Field, event: Event): void {
   fieldStore.setActiveField(field)
   const elementPosition = getElementPosition(event.target as HTMLElement)
