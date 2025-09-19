@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TextField from '@/components/TextField.vue'
 import EditTextFieldModal from '@/components/EditTextFieldModal.vue'
-import { useTemplateRef } from 'vue'
+import { onMounted, useTemplateRef } from 'vue'
 import { type Field, useFieldStore } from '@/stores/field.ts'
 
 const editTextFieldModal = useTemplateRef('editTextFieldModal')
@@ -21,12 +21,21 @@ function openEditTextFieldModal(field: Field, event: Event): void {
   const elementPosition = getElementPosition(event.target as HTMLElement)
   editTextFieldModal.value?.openModal(elementPosition)
 }
+
+onMounted(() => {
+  document.addEventListener('mousemove', () => {
+    if (document.activeElement?.classList.contains('field')) {
+      ;(document.activeElement as HTMLTextAreaElement).blur()
+    }
+  })
+})
 </script>
 
 <template>
   <main class="cv">
     <div class="personal-info">
       <TextField
+        class="field"
         v-for="field in fieldStore.fields"
         :key="field.id"
         @click="openEditTextFieldModal(field, $event)"
