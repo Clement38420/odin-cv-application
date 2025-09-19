@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import TextField from '@/components/TextField.vue'
 import EditTextFieldModal from '@/components/EditTextFieldModal.vue'
-import { onMounted, useTemplateRef } from 'vue'
+import { onMounted, provide, useTemplateRef } from 'vue'
 import { type Field, useFieldStore } from '@/stores/field.ts'
+import { getElementPosition } from '@/utils/DOMUtils.ts'
 
 const editTextFieldModal = useTemplateRef('editTextFieldModal')
 
@@ -29,19 +30,14 @@ onMounted(() => {
     }
   })
 })
+
+provide('openEditTextFieldModal', openEditTextFieldModal)
 </script>
 
 <template>
   <main class="cv">
     <div class="personal-info">
-      <TextField
-        class="field"
-        v-for="field in fieldStore.fields"
-        :key="field.id"
-        @click="openEditTextFieldModal(field, $event)"
-        @keyup.enter="openEditTextFieldModal(field, $event)"
-      >
-        {{ field.value }}
+      <TextField class="field" v-for="field in fieldStore.fields" :key="field.id" :field="field">
       </TextField>
     </div>
     <div class="experiences"></div>

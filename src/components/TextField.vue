@@ -1,9 +1,26 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Field } from '@/stores/field.ts'
+import { inject } from 'vue'
+
+const props = defineProps<{
+  field: Field
+}>()
+
+const openEditTextFieldModal = inject('openEditTextFieldModal') as (
+  field: Field,
+  event: Event,
+) => void
+</script>
 
 <template>
-  <div class="field" tabindex="0">
+  <div
+    class="field"
+    tabindex="0"
+    @click="openEditTextFieldModal(props.field, $event)"
+    @keyup.enter="openEditTextFieldModal(props.field, $event)"
+  >
     <p class="content">
-      <slot></slot>
+      {{ field.value }}
     </p>
     <div class="edit-message">
       <span class="material-icons edit-icon">edit</span>
