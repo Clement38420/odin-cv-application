@@ -60,6 +60,7 @@ const openEditTextFieldModal = inject('openEditTextFieldModal') as (
   translate: 5px -5px;
   height: calc(100% + 10px);
   padding: 0 5px;
+  color: var(--text);
 }
 
 .field:hover .edit-message,
