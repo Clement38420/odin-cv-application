@@ -33,13 +33,13 @@ export const useFieldStore = defineStore('fields', () => {
   const activeField = ref<Field>(fields.value.name)
 
   function setActiveField(field: Field) {
-    activeField.value = { ...field }
+    activeField.value = field
   }
 
   function updateActiveFieldValue(value: string) {
     if (!activeField.value) return
 
-    Object.values(fields.value).find((field) => field.id === activeField.value.id).value = value
+    activeField.value.value = value
   }
 
   return {

@@ -107,8 +107,8 @@ textarea {
 }
 
 textarea:focus {
-  border-color: var(--cv-primary);
-  box-shadow: 0 0 4px var(--cv-primary);
+  border-color: var(--cv-color-background);
+  box-shadow: 0 0 4px var(--cv-color-background);
   outline: none;
 }
 
